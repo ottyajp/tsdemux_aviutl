@@ -8,8 +8,8 @@ set AUI_DIR="C:\Users\ottyajp\Desktop\videotemp\aviutl100\Plugins\lwinput.aui"
 :LOOP
 if "%~dpnx1" == "" goto END
 echo Input: %~dpnx1
-rem C:\dtv\BonTsDemux\BonTsDemuxC.exe -i "%~dpnx1"
-rem if %ERRORLEVEL% == 1 echo error occurred.
+C:\dtv\BonTsDemux\BonTsDemuxC.exe -i "%~dpnx1"
+if %ERRORLEVEL% == 1 echo error occurred.
 
 echo Generating index file...
 %AUI_INDEXER% -aui %AUI_DIR% "%~dpn1.m2v" > NUL
