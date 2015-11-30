@@ -14,13 +14,13 @@ rem if %ERRORLEVEL% == 1 echo error occurred.
 echo Generating index file...
 %AUI_INDEXER% -aui %AUI_DIR% "%~dpn1.m2v" > NUL
 echo executing aviutl...
-%AUC_DIR%\auc_exec %AVU_DIR%\aviutl.exe
+%AUC_DIR%\auc_exec %AVU_DIR%\aviutl.exe > NUL
 timeout /t 3 > NUL
 echo load m2v...
-%AUC_DIR%\auc_open %~dpn1.m2v
+%AUC_DIR%\auc_open "%~dpn1.m2v"
 timeout /t 3 > NUL
 echo load wav...
-%AUC_DIR%\auc_audioadd %~dpn1.wav
+%AUC_DIR%\auc_audioadd "%~dpn1.wav"
 echo waiting aviutl terminate...
 :WAIT_AVIUTL_TERM
 	%AUC_DIR%\auc_findwnd > NUL
