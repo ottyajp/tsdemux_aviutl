@@ -2,19 +2,20 @@
 
 set AUC_DIR="C:\Users\ottyajp\Desktop\videotemp\aviutl100\auc"
 set AVU_DIR="C:\Users\ottyajp\Desktop\videotemp\aviutl100"
-set AUI_INDEXER_DIR="C:\Users\ottyajp\Desktop\videotemp\aviutl100\aui_indexer_0.03"
+set AUI_INDEXER="C:\Users\ottyajp\Desktop\videotemp\aviutl100\aui_indexer_0.03\aui_indexer.exe"
 set AUI_DIR="C:\Users\ottyajp\Desktop\videotemp\aviutl100\Plugins\lwinput.aui"
 
 :LOOP
 if "%~dpnx1" == "" goto END
 echo Input: %~dpnx1
-C:\dtv\BonTsDemux\BonTsDemuxC.exe -i "%~dpnx1"
-if %ERRORLEVEL% == 1 echo error occurred.
+rem C:\dtv\BonTsDemux\BonTsDemuxC.exe -i "%~dpnx1"
+rem if %ERRORLEVEL% == 1 echo error occurred.
 
 echo Generating index file...
-%AUI_INDEXER_DIR%\aui_indexer.exe -aui %AUI_DIR% %~dpn1.m2v > NUL
+%AUI_INDEXER% -aui %AUI_DIR% "%~dpn1.m2v" > NUL
 echo executing aviutl...
-%AUC_DIR%\auc_exec %AVU_DIR%\aviutl.exe > NUL
+%AUC_DIR%\auc_exec %AVU_DIR%\aviutl.exe
+timeout /t 3 > NUL
 echo load m2v...
 %AUC_DIR%\auc_open %~dpn1.m2v
 timeout /t 3 > NUL
