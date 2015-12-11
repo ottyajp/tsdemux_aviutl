@@ -12,21 +12,32 @@ if "%~x1" == ".bat" goto TS
 if "%~x1" == ".mp4" goto MP4
 
 :TS
-C:\dtv\BonTsDemux\BonTsDemuxC.exe -i "%~dpnx1"
-if %ERRORLEVEL% == 1 echo error occurred.
+	C:\dtv\BonTsDemux\BonTsDemuxC.exe -i "%~dpnx1"
+	if %ERRORLEVEL% == 1 echo error occurred.
+	echo Generating index file...
+	%AUI_INDEXER% -aui %AUI_DIR% "%~dpn1.m2v" > NUL
+	echo executing aviutl...
+	%AUC_DIR%\auc_exec %AVU_DIR%\aviutl.exe > NUL
+	timeout /t 3 > NUL
+	echo load m2v...
+	%AUC_DIR%\auc_open "%~dpn1.m2v"
+	timeout /t 3 > NUL
+	echo load wav...
+	%AUC_DIR%\auc_audioadd "%~dpn1.wav"
+	goto WAIT
 
 :MP4
+	echo Generating index file...
+	%AUI_INDEXER% -aui %AUI_DIR% "%~dpnx1" > NUL
+	echo executing aviutl...
+	%AUC_DIR%\auc_exec %AVU_DIR%\aviutl.exe > NUL
+	timeout /t 3 > NUL
+	echo load mp4...
+	%AUC_DIR%\auc_open "%~dpn1.mp4"
+	timeout /t 3 > NUL
+	goto WAIT
 
-echo Generating index file...
-%AUI_INDEXER% -aui %AUI_DIR% "%~dpn1.m2v" > NUL
-echo executing aviutl...
-%AUC_DIR%\auc_exec %AVU_DIR%\aviutl.exe > NUL
-timeout /t 3 > NUL
-echo load m2v...
-%AUC_DIR%\auc_open "%~dpn1.m2v"
-timeout /t 3 > NUL
-echo load wav...
-%AUC_DIR%\auc_audioadd "%~dpn1.wav"
+:WAIT
 echo waiting aviutl terminate...
 :WAIT_AVIUTL_TERM
 	%AUC_DIR%\auc_findwnd > NUL
