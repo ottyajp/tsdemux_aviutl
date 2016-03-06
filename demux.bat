@@ -8,7 +8,7 @@ set AUI_DIR="C:\Users\ottyajp\Desktop\videotemp\aviutl100\Plugins\lwinput.aui"
 :LOOP
 if "%~dpnx1" == "" goto END
 echo Input: %~dpnx1
-if "%~x1" == ".bat" goto TS
+if "%~x1" == ".ts" goto TS
 if "%~x1" == ".mp4" goto MP4
 
 :TS
